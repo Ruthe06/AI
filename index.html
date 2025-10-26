@@ -568,6 +568,18 @@
                 this.uploadedBytes = 0;
                 this.downloadedBytes = 0;
                 
+                // Dynamic socket.io connection
+                this.socket = io(window.location.origin);
+
+                this.socket.on('connect', () => {
+                    console.log('✅ Connected to server via Socket.io:', this.socket.id);
+                });
+
+                this.socket.on('disconnect', () => {
+                    console.log('❌ Disconnected from server');
+                });
+
+                
                 // Initialize
                 this.init();
             }
@@ -576,6 +588,7 @@
                 console.log('🚀 Chunk Transfer App Initialized');
                 this.checkURLForTransfer();
                 this.setupEventListeners();
+                
             }
 
             checkURLForTransfer() {
